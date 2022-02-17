@@ -15,6 +15,7 @@ SECRET_KEY = (
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if os.getenv("DJANGO_PRODUCTION", default=None) else True
+# DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -43,13 +44,19 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
+    # "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "social_django.middleware.SocialAuthExceptionMiddleware",
 ]
 
+if DEBUG:
+    MIDDLEWARE.extend(
+        [
+            "debug_toolbar.middleware.DebugToolbarMiddleware",
+        ]
+    )
 ROOT_URLCONF = "geekshop.urls"
 
 TEMPLATES = [
